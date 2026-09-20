@@ -207,7 +207,7 @@ Set these environment variables to enable BlockConvey-hosted traces:
 
 ## Packages
 
-**Implementation modules:** runtime subsystems live under `packages/runtime/src/` — `pipeline/` (DAG pipeline engine), `router/` (model router), `agents/` (`base.ts` + `planner.ts`, `coder.ts`, `reviewer.ts`, `deployer.ts`, `verifier.ts`), `tools/` (tool executor), `feedback/` (in-memory feedback store + `spacetime-client.ts`), `durable/` (durable pipeline), `config/` (YAML+Zod loader). Rust orchestrator sources: `packages/orchestrator/src/` (`server.rs`, `container.rs`, `error.rs`, `superserve.rs`). CLI commands: `packages/cli/src/commands/` (`init.ts`, `run.ts`, `review.ts`, `deploy.ts`, `status.ts`).
+**Implementation modules:** runtime subsystems live under `packages/runtime/src/` — `pipeline/` (DAG pipeline engine), `router/` (model router), `agents/` (`base.ts` + `planner.ts`, `coder.ts`, `reviewer.ts`, `deployer.ts`, `verifier.ts`), `tools/` (tool executor), `feedback/` (feedback store with in-memory fallback), `spacetime/` (canonical SpacetimeDB client — `client.ts` + `types.ts`, re-exported from the package barrel), `durable/` (durable pipeline), `config/` (YAML+Zod loader). Rust orchestrator sources: `packages/orchestrator/src/` (`server.rs`, `container.rs`, `error.rs`, `superserve.rs`). CLI commands: `packages/cli/src/commands/` (`init.ts`, `run.ts`, `review.ts`, `deploy.ts`, `status.ts`).
 
 ### `@forge/runtime` (~2,500 LOC)
 
