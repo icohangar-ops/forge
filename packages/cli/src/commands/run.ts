@@ -158,7 +158,7 @@ function loadConfig(configPath: string): ForgeConfig {
   }
 }
 
-type ModelClientFn = (messages: Message[], agentConfig: { model: string; maxTokens: number; temperature: number }) => Promise<ModelResponse>;
+type ModelClientFn = (messages: Message[], agentConfig: { model: string; maxTokens: number; temperature: number; type: string; name: string }) => Promise<ModelResponse>;
 
 function createModelClient(config: ForgeConfig, opts: RunOptions, router: ModelRouter): ModelClientFn {
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
