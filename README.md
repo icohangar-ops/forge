@@ -185,7 +185,7 @@ Three deployment target type cards (Rust Service, Python API, Docker) are shown 
 | Observability | PRISMtrace on BlockConvey | Model-call traces for Anthropic/OpenAI |
 | CLI | TypeScript, Commander.js | User-facing command-line interface |
 | Deploy Targets | TypeScript, plugin system | Pluggable deployment backends |
-| Web Dashboard | Next.js 16, Tailwind CSS v4, shadcn/ui, Recharts | Real-time monitoring and control |
+| Web Dashboard | Next.js 16, Tailwind CSS v4, shadcn/ui, Recharts | Real-time monitoring and control (planned — design stills in `docs/images/`, no `packages/web/` yet) |
 | State/Feedback | SpacetimeDB (planned) | Real-time persistence with Rust+TS SDKs |
 | Container Orch | Docker SDK (planned) | Build, push, and manage containers |
 | Pipeline | Custom DAG engine | Topological sort, conditional edges |
@@ -204,6 +204,8 @@ Set these environment variables to enable BlockConvey-hosted traces:
 ---
 
 ## Packages
+
+**Implementation modules:** runtime subsystems live under `packages/runtime/src/` — `pipeline/` (DAG pipeline engine), `router/` (model router), `agents/` (`base.ts` + `planner.ts`, `coder.ts`, `reviewer.ts`, `deployer.ts`, `verifier.ts`), `tools/` (tool executor), `feedback/` (in-memory feedback store + `spacetime-client.ts`), `durable/` (durable pipeline), `config/` (YAML+Zod loader). Rust orchestrator sources: `packages/orchestrator/src/` (`server.rs`, `container.rs`, `error.rs`, `superserve.rs`). CLI commands: `packages/cli/src/commands/` (`init.ts`, `run.ts`, `review.ts`, `deploy.ts`, `status.ts`).
 
 ### `@forge/runtime` (~2,500 LOC)
 
@@ -396,7 +398,7 @@ runtime:
 - [x] CLI scaffold (forge init, run, review, deploy, status)
 - [x] Deploy target plugins (rust-service, python-api)
 - [x] Rust orchestrator (gRPC, container trait, in-memory impl)
-- [x] Web dashboard (Next.js 16, 5 tabs, SVG DAG, charts)
+- [ ] Web dashboard (Next.js 16, 5 tabs, SVG DAG, charts) — designed (stills in `docs/images/`); `packages/web/` implementation pending
 
 ### Phase 2: Validation & Real Deployment
 - [ ] Docker `ContainerManager` implementation for the orchestrator
@@ -547,3 +549,4 @@ MIT
 ## Credit
 
 Forge draws architectural inspiration from [Factory.ai](https://factory.ai)'s pioneering work on AI-powered software deployment. We extend their vision by making the system self-improving through a closed feedback loop — every deployment makes the next one better.
+one better.
