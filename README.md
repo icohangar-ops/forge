@@ -132,6 +132,8 @@ forge/
 
 ## Dashboard
 
+> **Design status:** the dashboard is designed and captured as stills (`docs/images/`) but is not yet in the repo — `packages/web/` is planned. The descriptions below are the target design.
+
 The Forge web dashboard provides real-time visibility into every aspect of the agent system. Built with Next.js 16, Tailwind CSS v4, shadcn/ui, and Recharts — featuring a dark theme with emerald primary and amber accent colors.
 
 ### Overview Tab
@@ -370,7 +372,7 @@ runtime:
 - **Rust orchestrator** — gRPC service with in-memory mock container manager
 - **CLI** — `forge init` and `forge run` commands
 - **Deploy targets** — Rust service and Python API plugins (build phase)
-- **Web dashboard** — 5-tab monitoring dashboard with charts, DAG, and tables
+- **Web dashboard (design only)** — 5-tab monitoring dashboard specified with captured stills (`docs/images/`); the `packages/web/` implementation is not in the repo yet
 
 ### Known Limitations (Phase 1)
 
@@ -379,7 +381,7 @@ runtime:
 - **Workflow SDK durability** — DurablePipeline is a scaffold; the `workflow` package needs real implementation
 - **CLI commands** — `review`, `deploy`, and `status` are placeholders
 - **Security** — Shell command allowlist needs hardening against injection attacks
-- **No tests** — Test infrastructure is configured but no test files exist yet
+- **Minimal tests** — Test infrastructure is configured; one suite exists (`packages/runtime/tests/tools-path-confinement.test.ts`) and coverage is otherwise empty
 - **No CI/CD** — No GitHub Actions or automated workflows
 
 ---
@@ -549,4 +551,3 @@ MIT
 ## Credit
 
 Forge draws architectural inspiration from [Factory.ai](https://factory.ai)'s pioneering work on AI-powered software deployment. We extend their vision by making the system self-improving through a closed feedback loop — every deployment makes the next one better.
-one better.
