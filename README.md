@@ -132,6 +132,8 @@ forge/
 
 ## Dashboard
 
+> **Design status:** the dashboard is designed and captured as stills (`docs/images/`) but is not yet in the repo — `packages/web/` is planned. The descriptions below are the target design.
+
 The Forge web dashboard provides real-time visibility into every aspect of the agent system. Built with Next.js 16, Tailwind CSS v4, shadcn/ui, and Recharts — featuring a dark theme with emerald primary and amber accent colors.
 
 ### Overview Tab
@@ -185,7 +187,7 @@ Three deployment target type cards (Rust Service, Python API, Docker) are shown 
 | Observability | PRISMtrace on BlockConvey | Model-call traces for Anthropic/OpenAI |
 | CLI | TypeScript, Commander.js | User-facing command-line interface |
 | Deploy Targets | TypeScript, plugin system | Pluggable deployment backends |
-| Web Dashboard | Next.js 16, Tailwind CSS v4, shadcn/ui, Recharts | Real-time monitoring and control |
+| Web Dashboard | Next.js 16, Tailwind CSS v4, shadcn/ui, Recharts | Real-time monitoring and control (planned — design stills in `docs/images/`, no `packages/web/` yet) |
 | State/Feedback | SpacetimeDB (planned) | Real-time persistence with Rust+TS SDKs |
 | Container Orch | Docker SDK (planned) | Build, push, and manage containers |
 | Pipeline | Custom DAG engine | Topological sort, conditional edges |
@@ -204,6 +206,8 @@ Set these environment variables to enable BlockConvey-hosted traces:
 ---
 
 ## Packages
+
+**Implementation modules:** runtime subsystems live under `packages/runtime/src/` — `pipeline/` (DAG pipeline engine), `router/` (model router), `agents/` (`base.ts` + `planner.ts`, `coder.ts`, `reviewer.ts`, `deployer.ts`, `verifier.ts`), `tools/` (tool executor), `feedback/` (feedback store with in-memory fallback), `spacetime/` (canonical SpacetimeDB client — `client.ts` + `types.ts`, re-exported from the package barrel), `durable/` (durable pipeline), `config/` (YAML+Zod loader). Rust orchestrator sources: `packages/orchestrator/src/` (`server.rs`, `container.rs`, `error.rs`, `superserve.rs`). CLI commands: `packages/cli/src/commands/` (`init.ts`, `run.ts`, `review.ts`, `deploy.ts`, `status.ts`).
 
 ### `@forge/runtime` (~2,500 LOC)
 
@@ -368,7 +372,7 @@ runtime:
 - **Rust orchestrator** — gRPC service with in-memory mock container manager
 - **CLI** — `forge init` and `forge run` commands
 - **Deploy targets** — Rust service and Python API plugins (build phase)
-- **Web dashboard** — 5-tab monitoring dashboard with charts, DAG, and tables
+- **Web dashboard (design only)** — 5-tab monitoring dashboard specified with captured stills (`docs/images/`); the `packages/web/` implementation is not in the repo yet
 
 ### Known Limitations (Phase 1)
 
@@ -377,7 +381,7 @@ runtime:
 - **Workflow SDK durability** — DurablePipeline is a scaffold; the `workflow` package needs real implementation
 - **CLI commands** — `review`, `deploy`, and `status` are placeholders
 - **Security** — Shell command allowlist needs hardening against injection attacks
-- **No tests** — Test infrastructure is configured but no test files exist yet
+- **Minimal tests** — Test infrastructure is configured; one suite exists (`packages/runtime/tests/tools-path-confinement.test.ts`) and coverage is otherwise empty
 - **No CI/CD** — No GitHub Actions or automated workflows
 
 ---
@@ -396,7 +400,7 @@ runtime:
 - [x] CLI scaffold (forge init, run, review, deploy, status)
 - [x] Deploy target plugins (rust-service, python-api)
 - [x] Rust orchestrator (gRPC, container trait, in-memory impl)
-- [x] Web dashboard (Next.js 16, 5 tabs, SVG DAG, charts)
+- [ ] Web dashboard (Next.js 16, 5 tabs, SVG DAG, charts) — designed (stills in `docs/images/`); `packages/web/` implementation pending
 
 ### Phase 2: Validation & Real Deployment
 - [ ] Docker `ContainerManager` implementation for the orchestrator
